@@ -18,23 +18,25 @@ void merge_sort(int *array, size_t size)
 		return;
 
 	/* split and merge, when merging values - 1 for index */
-	split_merge(array, temp_arr, 1, mid_point(size), size);
+	sp_merge(array, temp_arr, 1, mid_point(size), size);
 	merge(array, temp_arr, 0, mid_point(size)-1, size - 1);
 	free(temp_arr);
 }
 
-void split_merge(int *array, int *temp_arr, size_t low, size_t mid, size_t high)
+void sp_merge(int *array, int *temp_arr, size_t low, size_t mid, size_t high)
 {
 	size_t l_mid, r_mid;
 	/* find all split points for left / right */
-	l_mid = mid_point(mid);
+	l_mid = low + mid_point(mid - low);
+	if (l_mid + l_mid > mid)
+	 	--l_mid;
 	/* check if we can go deeper left */
 	/* left: low, l_mid, mid */
 	printf("split-merge l:%ld, m:%ld, h:%ld, l_mid:%ld\n", low, mid, high, l_mid);
-	if (mid - low > 1 && low < l_mid)
+	if (mid - low > 1)
 	{
 		printf("call left split\n");
-		split_merge(array, temp_arr, low, l_mid, mid);
+		sp_merge(array, temp_arr, low, l_mid, mid);
 	}
 	/* merge left */
 	/* issue with mid_point(mid) - 1 on right side */
@@ -56,7 +58,7 @@ void split_merge(int *array, int *temp_arr, size_t low, size_t mid, size_t high)
 	if (high - mid > 3)
 	{
 		printf("call right split\n");
-		split_merge(array, temp_arr, mid+1, r_mid, high);
+		sp_merge(array, temp_arr, mid+1, r_mid, high);
 	}
 	/* merge right */
 	merge(array, temp_arr, mid, r_mid-1, high-1);
@@ -68,7 +70,8 @@ void merge(int *array, int *temp_arr, size_t low, size_t mid, size_t high)
 
 	printf("Merging...\n");
 	printf("low:%ld mid:%ld high:%ld\n", low, mid, high);
-	copy_arr(array, temp_arr, low, high);
+	for (i = low; i <= high; ++i)
+		temp_arr[i] = array[i];
 	if (high - low == 2)
 	{
 		printf("[left]: %d\n", temp_arr[low+1]);
@@ -130,12 +133,6 @@ size_t mid_point(size_t size)
 	else
 		mid = (size - 1) / 2;
 	return mid;
-}
-
-void copy_arr(int *orig, int *dest, size_t idx, size_t end)
-{
-	for (; idx <= end; ++idx)
-		dest[idx] = orig[idx];
 }
 
 void p_array(int *array, size_t idx, size_t end)

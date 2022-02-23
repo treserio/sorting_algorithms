@@ -34,7 +34,9 @@ void sp_merge(int *array, int *temp_arr, size_t low, size_t mid, size_t high)
 {
 	size_t l_mid, r_mid;
 	/* find all split points for left / right */
-	l_mid = mid_point(mid);
+	l_mid = low + mid_point(mid - low);
+	if (l_mid + l_mid > mid)
+		--l_mid;
 	/* check if we can go deeper left */
 	/* left: low, l_mid, mid */
 	if (mid - low > 1 && low < l_mid)
@@ -106,7 +108,7 @@ void merge(int *array, int *t_a, size_t low, size_t mid, size_t hi)
 		array[i++] = t_a[l++], --left;
 	while (right)
 		array[i++] = t_a[r++], --right;
-	printf("[Done:] "), p_array(array, low, hi);
+	printf("[Done]: "), p_array(array, low, hi);
 }
 
 /**
