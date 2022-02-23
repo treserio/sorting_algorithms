@@ -16,9 +16,15 @@ void merge_sort(int *array, size_t size)
 	if (!temp_arr)
 		return;
 
-	/* split and merge, when merging values - 1 for index */
-	sp_merge(array, temp_arr, 1, mid_point(size), size);
-	merge(array, temp_arr, 0, mid_point(size) - 1, size - 1);
+	/* check if size is 3 or smaller */
+	if (size < 4)
+		merge(array, temp_arr, 0, mid_point(size) - 1, size - 1);
+	else
+	{
+		/* split and merge, when merging values - 1 for index */
+		sp_merge(array, temp_arr, 1, mid_point(size), size);
+		merge(array, temp_arr, 0, mid_point(size) - 1, size - 1);
+	}
 	free(temp_arr);
 }
 
