@@ -29,4 +29,9 @@ void merge(int *array, int *temp_arr, size_t low, size_t mid, size_t high);
 size_t mid_point(size_t size);
 void p_array(int *array, size_t idx, size_t end);
 
+/* heap sorting */
+void heap_sort(int *array, size_t size);
+void sift_down(int *array, size_t p_idx, size_t size);
+void heapify(int *array, int heap, int i, int size);
+
 #endif
