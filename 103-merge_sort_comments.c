@@ -18,43 +18,38 @@ void merge_sort(int *array, size_t size)
 		return;
 
 	/* split and merge, when merging values - 1 for index */
-	sp_merge(array, temp_arr, 1, mid_point(size), size);
-	merge(array, temp_arr, 0, mid_point(size)-1, size - 1);
+	sp_merge(array, temp_arr, 1, mid_point(1, size + 1), size);
+	merge(array, temp_arr, 0, mid_point(1, size + 1)-1, size - 1);
 	free(temp_arr);
 }
 
 void sp_merge(int *array, int *temp_arr, size_t low, size_t mid, size_t high)
 {
 	size_t l_mid, r_mid;
-	/* find all split points for left / right */
-	l_mid = low + mid_point(mid - low);
-	if (l_mid + l_mid > mid)
-	 	--l_mid;
+	/* find accurate l_mid point between low & mid */
+	l_mid = low + mid_point(low, mid);
+	if ((l_mid - low) + l_mid >= mid)
+		--l_mid;
 	/* check if we can go deeper left */
 	/* left: low, l_mid, mid */
 	printf("split-merge l:%ld, m:%ld, h:%ld, l_mid:%ld\n", low, mid, high, l_mid);
-	if (mid - low > 1)
+	if (mid - low > 3)
 	{
 		printf("call left split\n");
 		sp_merge(array, temp_arr, low, l_mid, mid);
 	}
 	/* merge left */
-	/* issue with mid_point(mid) - 1 on right side */
-	/* figure out right merge on left split here */
 	if (low <= l_mid)
 		merge(array, temp_arr, low-1, l_mid-1, mid-1);
 	else
 		merge(array, temp_arr, low-1, low-1, mid-1);
-
-	if (mid_point(high-mid) == 1)
-		r_mid = mid + 2;
-	else if (high - low == 1)
-		r_mid = low;
-	else
-		r_mid = mid + mid_point(high - mid);
+	/* find accurate r_mid point between mid & high */
+	r_mid = mid + mid_point(mid, high);
+	if ((r_mid - mid) + r_mid > high)
+		--r_mid;
 	/* check if we can go deeper right */
 	/* right: mid+1, r_mid, high */
-	printf("mid:%ld r_mid:%ld high:%ld\n", mid, r_mid, high);
+	printf("RIGHT   mid:%ld r_mid:%ld high:%ld\n", mid, r_mid, high);
 	if (high - mid > 3)
 	{
 		printf("call right split\n");
@@ -124,14 +119,14 @@ void merge(int *array, int *temp_arr, size_t low, size_t mid, size_t high)
 	p_array(array, low, high);
 }
 
-size_t mid_point(size_t size)
+size_t mid_point(size_t low, size_t high)
 {
 	size_t mid;
 
-	if (!(size % 2))
-		mid = size / 2;
+	if (!((high - low) % 2))
+		mid = (high - low) / 2;
 	else
-		mid = (size - 1) / 2;
+		mid = ((high - low) - 1) / 2;
 	return mid;
 }
 

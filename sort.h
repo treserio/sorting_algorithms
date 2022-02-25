@@ -26,7 +26,7 @@ void selection_sort(int *array, size_t size);
 void merge_sort(int *array, size_t size);
 void sp_merge(int *array, int *temp_arr, size_t low, size_t mid, size_t high);
 void merge(int *array, int *temp_arr, size_t low, size_t mid, size_t high);
-size_t mid_point(size_t size);
+size_t mid_point(size_t low, size_t high);
 void p_array(int *array, size_t idx, size_t end);
 
 /* heap sorting */

@@ -18,12 +18,12 @@ void merge_sort(int *array, size_t size)
 
 	/* check if size is 3 or smaller */
 	if (size < 4)
-		merge(array, temp_arr, 0, mid_point(size) - 1, size - 1);
+		merge(array, temp_arr, 0, mid_point(1, size + 1) - 1, size - 1);
 	else
 	{
 		/* split and merge, when merging values - 1 for index */
-		sp_merge(array, temp_arr, 1, mid_point(size), size);
-		merge(array, temp_arr, 0, mid_point(size) - 1, size - 1);
+		sp_merge(array, temp_arr, 1, mid_point(1, size + 1), size);
+		merge(array, temp_arr, 0, mid_point(1, size + 1) - 1, size - 1);
 	}
 	free(temp_arr);
 }
@@ -39,9 +39,9 @@ void merge_sort(int *array, size_t size)
 void sp_merge(int *array, int *temp_arr, size_t low, size_t mid, size_t high)
 {
 	size_t l_mid, r_mid;
-	/* find all split points for left / right */
-	l_mid = low + mid_point(mid - low);
-	if (l_mid + l_mid > mid)
+	/* find accurate l_mid point between low & mid */
+	l_mid = low + mid_point(low, mid);
+	if ((l_mid - low) + l_mid >= mid)
 		--l_mid;
 	/* check if we can go deeper left */
 	/* left: low, l_mid, mid */
@@ -52,13 +52,10 @@ void sp_merge(int *array, int *temp_arr, size_t low, size_t mid, size_t high)
 		merge(array, temp_arr, low - 1, l_mid - 1, mid - 1);
 	else
 		merge(array, temp_arr, low - 1, low - 1, mid - 1);
-
-	if (mid_point(high - mid) == 1)
-		r_mid = mid + 2;
-	else if (high - low == 1)
-		r_mid = low;
-	else
-		r_mid = mid + mid_point(high - mid);
+	/* find accurate r_mid point between mid & high */
+	r_mid = mid + mid_point(mid, high);
+	if ((r_mid - mid) + r_mid > high)
+		--r_mid;
 	/* check if we can go deeper right */
 	/* right: mid+1, r_mid, high */
 	if (high - mid > 3)
@@ -119,17 +116,18 @@ void merge(int *array, int *t_a, size_t low, size_t mid, size_t hi)
 
 /**
 * mid_point - find the mid point of an intiger, will round down for odd number
-* @size: value to find the mid point of
+* @low: the low value to find a mid point between
+* @high: the high value to find a mid point between
 * Return: the mid point of the number
 */
-size_t mid_point(size_t size)
+size_t mid_point(size_t low, size_t high)
 {
 	size_t mid;
 
-	if (!(size % 2))
-		mid = size / 2;
+	if (!((high - low) % 2))
+		mid = (high - low) / 2;
 	else
-		mid = (size - 1) / 2;
+		mid = ((high - low) - 1) / 2;
 	return (mid);
 }
 
