@@ -32,6 +32,5 @@ void p_array(int *array, size_t idx, size_t end);
 /* heap sorting */
 void heap_sort(int *array, size_t size);
 void sift_down(int *array, size_t p_idx, size_t sz, size_t actual_size);
-void heapify(int *array, int heap, int i, int size);
 
 #endif
