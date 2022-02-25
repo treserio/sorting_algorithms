@@ -45,7 +45,7 @@ void sp_merge(int *array, int *temp_arr, size_t low, size_t mid, size_t high)
 		--l_mid;
 	/* check if we can go deeper left */
 	/* left: low, l_mid, mid */
-	if (mid - low > 1 && low < l_mid)
+	if (mid - low > 3)
 		sp_merge(array, temp_arr, low, l_mid, mid);
 	/* merge left */
 	if (low <= l_mid)
