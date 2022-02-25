@@ -48,10 +48,7 @@ void sp_merge(int *array, int *temp_arr, size_t low, size_t mid, size_t high)
 	if (mid - low > 3)
 		sp_merge(array, temp_arr, low, l_mid, mid);
 	/* merge left */
-	if (low <= l_mid)
-		merge(array, temp_arr, low - 1, l_mid - 1, mid - 1);
-	else
-		merge(array, temp_arr, low - 1, low - 1, mid - 1);
+	merge(array, temp_arr, low - 1, l_mid - 1, mid - 1);
 	/* find accurate r_mid point between mid & high */
 	r_mid = mid + mid_point(mid, high);
 	if ((r_mid - mid) + r_mid > high)
