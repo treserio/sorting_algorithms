@@ -23,6 +23,8 @@ void print_list(const listint_t *list);
 void bubble_sort(int *array, size_t size);
 void insertion_sort_list(listint_t **list);
 void selection_sort(int *array, size_t size);
+
+/* merge sorting */
 void merge_sort(int *array, size_t size);
 void sp_merge(int *array, int *temp_arr, size_t low, size_t mid, size_t high);
 void merge(int *array, int *temp_arr, size_t low, size_t mid, size_t high);
@@ -32,5 +34,8 @@ void p_array(int *array, size_t idx, size_t end);
 /* heap sorting */
 void heap_sort(int *array, size_t size);
 void sift_down(int *array, size_t p_idx, size_t sz, size_t actual_size);
+
+/* radix sorting */
+void radix_sort(int *array, size_t size);
 
 #endif
