@@ -5,10 +5,9 @@
  * @array: the array that we've heaped
  * @size: the size of array
  */
-
 void radix_sort(int *array, size_t size)
 {
-	size_t places, base, digit, div, i, j, total = 0;
+	size_t places, digit, div, i, j, total = 0, base = 10;
 	int *swap_arr;
 	/* no need to sort cases */
 	if (!array || size < 2)
@@ -20,7 +19,7 @@ void radix_sort(int *array, size_t size)
 	/* find the most significant digits in the array */
 	for (i = 0; i < size; ++i)
 	{
-		for (base = 1, places = 0; array[i] / base; base *= 10)
+		for (div = 1, places = 0; array[i] / div; div *= 10)
 			++places;
 		if (places > total)
 			total = places;
@@ -31,7 +30,7 @@ void radix_sort(int *array, size_t size)
 		/* copy the current state of the array to our swap array */
 		for (i = 0; i < size; ++i)
 			swap_arr[i] = array[i];
-		/* sort based on current values from 0 to base*/
+		/* sort based on current values from 0 to base */
 		for (digit = 0, j = 0; digit * div < base * div && j < size; ++digit)
 			/* compare each value to the current digit */
 			for (i = 0; i < size; ++i)
