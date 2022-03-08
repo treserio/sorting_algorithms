@@ -1,5 +1,8 @@
 #include "sort.h"
-
+/**
+ * insertion_sort_list - Sorts a dbly linked list using insertion method
+ * @list: a pointer to a pointer of the head of the dbly linked list
+*/
 void insertion_sort_list(listint_t **list)
 {
 	listint_t *run, *swap;
@@ -7,7 +10,7 @@ void insertion_sort_list(listint_t **list)
 	if (!list || !*list || !(*list)->next)
 		return;
 	/* move forward and check back for values */
-	for (run = (*list)->next; run; run = run -> next)
+	for (run = (*list)->next; run; run = run->next)
 	{
 		for (swap = run; swap->prev && swap->prev->n > swap->n;)
 		{
@@ -43,4 +46,3 @@ void insertion_sort_list(listint_t **list)
 		}
 	}
 }
-
