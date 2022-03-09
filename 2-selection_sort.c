@@ -22,23 +22,7 @@ void selection_sort(int *array, size_t size)
 			swap = array[i];
 			array[i] = array[tiny];
 			array[tiny] = swap;
-			p_array(array, 0, size);
+			print_array(array, size);
 		}
 	}
-}
-
-/**
- * p_array - print the given array from idx to end
- * @array: pointer to the beginning of the array to print from
- * @idx: the starting index to print from
- * @end: the final index to print
-*/
-void p_array(int *array, size_t idx, size_t end)
-{
-	for (; idx < end - 1; ++idx)
-	{
-		printf("%d", array[idx]);
-		printf(", ");
-	}
-	printf("%d\n", array[idx]);
 }
