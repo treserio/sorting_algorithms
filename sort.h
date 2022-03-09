@@ -24,6 +24,14 @@ void bubble_sort(int *array, size_t size);
 void insertion_sort_list(listint_t **list);
 void selection_sort(int *array, size_t size);
 
+/* quick sorting */
+void quick_sort(int *array, size_t size);
+void quick(int *array, size_t size, size_t left, size_t right);
+void q_sort(int *array, size_t size, size_t start, size_t end);
+void sort(int *array, int low, int high, size_t size);
+int partition(int *array, int low, int high, size_t size);
+void swapArray(int *array, int first, int second);
+
 /* merge sorting */
 void merge_sort(int *array, size_t size);
 void sp_merge(int *array, int *temp_arr, size_t low, size_t mid, size_t high);
