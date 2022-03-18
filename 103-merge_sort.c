@@ -18,7 +18,7 @@ void merge_sort(int *array, size_t size)
 
 	/* check if size is 3 or smaller */
 	if (size < 4)
-		merge(array, temp_arr, 0, mid_point(0, size), size - 1);
+		merge(array, temp_arr, 0, mid_point(0, size) - 1, size - 1);
 	else
 	{
 		/* split and merge, when merging values - 1 for index */
