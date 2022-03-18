@@ -18,12 +18,12 @@ void merge_sort(int *array, size_t size)
 
 	/* check if size is 3 or smaller */
 	if (size < 4)
-		merge(array, temp_arr, 0, mid_point(1, size + 1) - 1, size - 1);
+		merge(array, temp_arr, 0, mid_point(0, size), size - 1);
 	else
 	{
 		/* split and merge, when merging values - 1 for index */
-		sp_merge(array, temp_arr, 1, mid_point(1, size + 1), size);
-		merge(array, temp_arr, 0, mid_point(1, size + 1) - 1, size - 1);
+		sp_merge(array, temp_arr, 1, mid_point(0, size), size);
+		merge(array, temp_arr, 0, mid_point(0, size) - 1, size - 1);
 	}
 	free(temp_arr);
 }
@@ -51,8 +51,6 @@ void sp_merge(int *array, int *temp_arr, size_t low, size_t mid, size_t high)
 	merge(array, temp_arr, low - 1, l_mid - 1, mid - 1);
 	/* find accurate r_mid point between mid & high */
 	r_mid = mid + mid_point(mid, high);
-	if ((r_mid - mid) + r_mid > high)
-		--r_mid;
 	/* check if we can go deeper right */
 	/* right: mid+1, r_mid, high */
 	if (high - mid > 3)
@@ -121,10 +119,8 @@ size_t mid_point(size_t low, size_t high)
 {
 	size_t mid;
 
-	if (!((high - low) % 2))
-		mid = (high - low) / 2;
-	else
-		mid = ((high - low) - 1) / 2;
+	mid = (high - low) / 2;
+
 	return (mid);
 }
 
